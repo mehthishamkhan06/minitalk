@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include	<ctype.h>
 #include <signal.h>
+#include "Libft/libft.h"
 
 
 //SIGUSER1: represents bit value 1
@@ -13,37 +14,69 @@ int	is_digit_str(char *str)
 	i = 0;
 	while(str[i])
 	{
-		if (!ft_isdigit[i])
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-void    send_signals(int pid, char c)
+void    send_signals(int pid, char *s)
 {
-	int a;
-	int b;
+	int send_sig;
+	int index;
+	int i;
+	int bit;
 	
-	a = 0;
-	b = 7;
-	while(b-- >= 0)
+	i = 0;
+	bit = 0;
+	send_sig = 0;
+	while(s[i])
 	{
-		if ((c >> i && 1) == 0)
+		index = 7;
+		while(index >= 0)
 		{
-			j = kill(pid, SIGUSR2);
-			if (j == -1)
-				return(ft_putendl_fd("ERROR", 2),exit(1),0);  
+			bit = s[i] >> index & 1;
+			if (bit == 1)
+				send_sig = kill(pid, SIGUSR1);
+			else
+				send_sig = kill(pid, SIGUSR2);
+			if (send_sig == -1)
+			{
+				ft_putendl_fd("ERROR..Kill got killed", 2);
+				exit(1);
+			}
+			index--;
+			usleep(500);
 		}
-		else
-		{
-			j = kill(pid, SIGUSR1);
-			if (j == -1)
-				return(ft_putendl_fd("ERROR", 2),exit(1),0);
-		}
-		usleep(150);
+		i++;
 	}
 }
+// void	send_null_signal(int pid, char c)
+// {
+// 	int a;
+// 	int b;
+// 	int i;
+	
+// 	i = 0;
+// 	a = 0;
+// 	b = 7;
+// 	while(b >= 0)
+// 	{
+// 		if (((c >> b) & 1) == 0)
+// 			a = kill(pid, SIGUSR2);
+// 		else
+// 			a = kill(pid, SIGUSR1);
+// 		if (a == -1)
+// 		{
+// 			ft_putendl_fd("ERROR..Kill got killed", 2);
+// 			exit(1);
+// 		}
+// 		b--;
+// 		usleep(500);
+// 	}
+// 	i++;
+// }
 int main(int argc, char *argv[])
 {
 	int pid;
@@ -51,17 +84,16 @@ int main(int argc, char *argv[])
 
 	if (argc == 3)
 	{
-		if (ft_isdigit(argv[1]) != 1) //replace is digit with your own func as ft_isdigit doesnt check for complete string.
+		if (is_digit_str(argv[1]) != 1) //replace is digit with your own func as ft_isdigit doesnt check for complete string.
 			//print error
-			return(ft_putendl_fd("ERROR", 2), 0);// for safety..)
+			return(ft_putendl_fd("ERROR..(Invalid PID)..There is a breach in protocol, the string should be Numeric", 2), 0);// for safety..)
 		// extract pid to readable using atoi
 		pid = ft_atoi(argv[1]);
-		while(argv[2][i])
-			send_signals(pid, argv[2][i++]); //create a send signals functions
-		send_signals(pid, '\0');
+		send_signals(pid, argv[2]); //create a send signals functions
+		// send_null_signal(pid, '\0');
 	}
 	else
 		//print error message
-		ft_putendl_fd("ERROR", 2);
+		ft_putendl_fd("ERROR...The number of arguments should be 2", 2);
 	return (0);
 }
