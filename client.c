@@ -52,31 +52,34 @@ void    send_signals(int pid, char *s)
 		i++;
 	}
 }
-// void	send_null_signal(int pid, char c)
-// {
-// 	int a;
-// 	int b;
-// 	int i;
+void    send_null_signals(int pid, char c)
+{
+	int send_sig;
+	int index;
+	int i;
+	int bit;
 	
-// 	i = 0;
-// 	a = 0;
-// 	b = 7;
-// 	while(b >= 0)
-// 	{
-// 		if (((c >> b) & 1) == 0)
-// 			a = kill(pid, SIGUSR2);
-// 		else
-// 			a = kill(pid, SIGUSR1);
-// 		if (a == -1)
-// 		{
-// 			ft_putendl_fd("ERROR..Kill got killed", 2);
-// 			exit(1);
-// 		}
-// 		b--;
-// 		usleep(500);
-// 	}
-// 	i++;
-// }
+	i = 0;
+	bit = 0;
+	send_sig = 0;
+	index = 7;
+	while(index >= 0)
+	{
+		bit = c >> index & 1;
+		if (bit == 1)
+			send_sig = kill(pid, SIGUSR1);
+		else
+			send_sig = kill(pid, SIGUSR2);
+		if (send_sig == -1)
+		{
+			ft_putendl_fd("ERROR..Kill got killed", 2);
+			exit(1);
+		}
+		index--;
+		usleep(500);
+	}
+	i++;
+}
 int main(int argc, char *argv[])
 {
 	int pid;
@@ -90,7 +93,7 @@ int main(int argc, char *argv[])
 		// extract pid to readable using atoi
 		pid = ft_atoi(argv[1]);
 		send_signals(pid, argv[2]); //create a send signals functions
-		// send_null_signal(pid, '\0');
+		send_null_signal(pid, '\0');
 	}
 	else
 		//print error message
