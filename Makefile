@@ -2,6 +2,7 @@ name = minitalk
 
 SRCS = server.c client.c
 
+SERVER = 
 OBJS			= $(SRCS:.c=.o)
 
 BONUS = server_bonus.c client_bonus.c

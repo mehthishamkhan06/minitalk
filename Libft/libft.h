@@ -20,13 +20,16 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <stdarg.h>
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
+int		ft_printf(const char *str, ...);
+int		ft_putchar(int c);
+int		ft_putstr(char *str);
+int		ft_hexaddr(unsigned long n);
+int		ft_rnputnbr(int n);
+int		ft_unsignint(unsigned int n);
+int		ft_hexsm(unsigned int n);
+int		ft_hexcap(unsigned int n);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 void	ft_putchar_fd(char c, int fd);
