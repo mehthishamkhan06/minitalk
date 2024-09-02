@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohkhan <mohkhan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 16:44:42 by mohkhan           #+#    #+#             */
-/*   Updated: 2024/09/02 16:44:44 by mohkhan          ###   ########.fr       */
+/*   Created: 2024/09/02 16:44:04 by mohkhan           #+#    #+#             */
+/*   Updated: 2024/09/02 16:44:06 by mohkhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <signal.h>
-#include <string.h>
-#include "Libft/libft.h"
+#include "libft.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

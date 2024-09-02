@@ -35,8 +35,6 @@ int	ft_atoi(const char *str)
 			return (0);
 		if (answer >= LLONG_MAX)
 			return (-1);
-		if (strlen(str) == 10)
-			return(-1);
 		str++;
 	}
 	return (sign * answer);

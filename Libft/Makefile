@@ -2,7 +2,7 @@
 # All sources files
 SRCS			=	ft_isdigit.c ft_atoi.c ft_putchar_fd.c ft_putstr_fd.c \
 					ft_putendl_fd.c ft_putnbr_fd.c ft_printf.c ft_putchar.c ft_putstr.c ft_hexaddr.c \
-					ft_rnputnbr.c ft_unsignint.c ft_hexsm.c ft_hexcap.c\
+					ft_rnputnbr.c ft_unsignint.c ft_hexsm.c ft_hexcap.c ft_strlen.c\
 
 OBJS			= $(SRCS:.c=.o) # Coversion of sources (C files to object files to create library)
 

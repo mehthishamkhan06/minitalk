@@ -32,6 +32,7 @@ int		ft_hexsm(unsigned int n);
 int		ft_hexcap(unsigned int n);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
+int		ft_strlen(char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);

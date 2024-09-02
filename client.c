@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mohkhan <mohkhan@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/02 16:44:25 by mohkhan           #+#    #+#             */
+/*   Updated: 2024/09/02 16:44:27 by mohkhan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 int	is_digit_str(char *str)
@@ -5,7 +17,7 @@ int	is_digit_str(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
@@ -14,24 +26,27 @@ int	is_digit_str(char *str)
 	return (1);
 }
 
-void	error(int send_sig)
+void	ft_error(int send_sig)
 {
-	ft_putendl_fd("ERROR..Kill got killed", 2);
-	exit(1);
+	if (send_sig == -1)
+	{
+		ft_putendl_fd("ERROR..Kill got killed", 2);
+		exit(1);
+	}
 }
 
-void    send_signals(int pid, char *s)
+void	send_signals(int pid, char *s)
 {
-	int send_sig;
-	int index;
-	int i;
-	int bit;
-	
+	int	send_sig;
+	int	index;
+	int	i;
+	int	bit;
+
 	i = 0;
-	while(i <= strlen(s))
+	while (i <= ft_strlen(s))
 	{
 		index = 7;
-		while(index >= 0)
+		while (index >= 0)
 		{
 			bit = s[i] >> index & 1;
 			if (bit == 1)
@@ -39,26 +54,28 @@ void    send_signals(int pid, char *s)
 			else
 				send_sig = kill(pid, SIGUSR2);
 			if (send_sig == -1)
-				error(send_sig);
+				ft_error(send_sig);
 			index--;
-			usleep(500);
+			usleep(300);
 		}
 		i++;
 	}
 }
-int main(int argc, char *argv[])
-{
-	int pid;
-	int i = 0;
 
+int	main(int argc, char *argv[])
+{
+	int	pid;
+	int	i;
+
+	i = 0;
 	if (argc == 3)
 	{
-		if (ft_digit_str(argv[1]) != 1)
-			return(ft_putendl_fd("ERROR..(Invalid PID)..There is a breach in protocol, the string should be Numeric", 2), 0);
+		if (is_digit_str(argv[1]) != 1)
+			return (ft_putendl_fd("ERROR..! (Invalid PID)", 2), 0);
 		pid = ft_atoi(argv[1]);
 		send_signals(pid, argv[2]);
 	}
 	else
-		ft_putendl_fd("ERROR...The number of arguments should be 2", 2);
+		ft_putendl_fd("ERROR..! The number of arguments should be 2", 2);
 	return (0);
 }

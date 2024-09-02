@@ -1,32 +1,89 @@
-name = minitalk
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mohkhan <mohkhan@student.42abudhabi.ae>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/02 16:45:08 by mohkhan           #+#    #+#              #
+#    Updated: 2024/09/02 16:45:09 by mohkhan          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS = server.c client.c
+CLIENT = client.o
 
-SERVER = 
-OBJS			= $(SRCS:.c=.o)
+SERVER = server.o
 
-BONUS = server_bonus.c client_bonus.c
+CLIENT_B = client_bonus.o
 
-BONUS_OBJS = $(BONUS:.c=.o)
+SERVER_B = server_bonus.o
 
-CC : cc 
-RM : rm -f
-Flags : -Wall -Wextra -Werror
+SRC = client.c server.c
 
-all:			$(NAME)
+SRC_BONUS = client_bonus.c server_bonus.c
 
-$(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
+CLIENT_NAME = client
+
+SERVER_NAME = server
+
+CLIENT_NAME_B = client_bonus
+
+SERVER_NAME_B = server_bonus
+
+LIBFT_DIR = libft
+
+LIBFT = libft.a
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
+
+RM = rm -rf
+
+OBJ = $(SRC:.c=.o)
+
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
+
+all: $(LIBFT) $(CLIENT_NAME) $(SERVER_NAME)
+		
+
+bonus: $(LIBFT) $(CLIENT_NAME_B) $(SERVER_NAME_B)
+		
+
+$(CLIENT_NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(CLIENT) -o $@ $(LIBFT_DIR)/$(LIBFT)
+	
+$(SERVER_NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(SERVER) -o $@ $(LIBFT_DIR)/$(LIBFT)
+
+$(CLIENT_NAME_B): $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(CLIENT_B) -o $@ $(LIBFT_DIR)/$(LIBFT)
+	
+$(SERVER_NAME_B): $(OBJ_BONUS)
+	$(CC) $(CFLAGS) $(SERVER_B) -o $@ $(LIBFT_DIR)/$(LIBFT)
+	
+$(LIBFT) : 
+	@make -C $(LIBFT_DIR)
 
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+	@make -C $(LIBFT_DIR) clean
+	@$(RM) server.o client.o
+	@$(RM) server_bonus.o client_bonus.o
 
-fclean:			clean
-				$(RM) $(NAME)
+fclean:
+	@make -C $(LIBFT_DIR) fclean
+	@make -C ./ clean
+	@$(RM) server client server_bonus client_bonus
 
-re:				fclean $(NAME)
+re:
+	@make fclean
+	@make all
 
-bonus:			$(BONUS_OBJS)
-				ar rcs $(NAME) $(BONUS_OBJS)
+bonusre:
+	@make fclean
+	@make bonus
 
-.PHONY:			all clean fclean re bonus
+norm:
+	@norminette -R CheckForbiddenSourceHeader *.c
+
+.PHONY:	all bonus clean fclean re norm
