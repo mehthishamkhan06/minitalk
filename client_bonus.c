@@ -31,7 +31,7 @@ int	is_digit_str(char *str)
 void	acknowledge(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_printf("Server received %d characters", g_length);
+		ft_printf("Congratulations....! Server received %d characters", g_length);
 	exit (0);	
 }
 

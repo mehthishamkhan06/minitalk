@@ -30,7 +30,7 @@ void	ft_error(int send_sig)
 {
 	if (send_sig == -1)
 	{
-		ft_putendl_fd("ERROR..Kill got killed", 2);
+		ft_putendl_fd("ERROR..Invaid !! Kill got killed", 2);
 		exit(1);
 	}
 }

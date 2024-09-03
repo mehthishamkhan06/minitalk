@@ -45,7 +45,7 @@ int	main(int argc, char *argv[])
 	if (argc == 1)
 	{
 		pid = getpid();
-		ft_printf("%s %d\n", "Welcome !!! The PID Is:", pid);
+		ft_printf("%s %d\n", "Welcome Aboard ...! PID IS:", pid);
 		signal(SIGUSR1, receiver);
 		signal(SIGUSR2, receiver);
 		while (1)

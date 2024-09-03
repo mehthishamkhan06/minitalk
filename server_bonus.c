@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 	{
 		pid = getpid();
-		ft_printf("%s %d\n", "PID IS:", pid);
+		ft_printf("%s %d\n", "Welcome Aboard ...! PID IS:", pid);
 		sa1.sa_flags = SA_SIGINFO;
 		sa1.sa_sigaction = receiver;
 		sigemptyset(&sa1.sa_mask);
