@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Libft/libft.h"
-#include <ctype.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 void	receiver(int sig)
 {

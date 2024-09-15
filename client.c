@@ -30,7 +30,7 @@ void	ft_error(int send_sig)
 {
 	if (send_sig == -1)
 	{
-		ft_putendl_fd("ERROR..Invaid !! Kill got killed", 2);
+		ft_putendl_fd("ERROR..Kill got killed (function failed to connect)", 2);
 		exit(1);
 	}
 }
@@ -76,6 +76,6 @@ int	main(int argc, char *argv[])
 		send_signals(pid, argv[2]);
 	}
 	else
-		ft_putendl_fd("ERROR..! The number of arguments should be 2", 2);
+		ft_putendl_fd("ERROR..! Invalid Number Of Arguments", 2);
 	return (0);
 }

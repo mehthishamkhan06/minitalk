@@ -10,12 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <ctype.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <signal.h>
-#include "Libft/libft.h"
+#include "minitalk.h"
 
 void	receiver(int sig, siginfo_t *siginfo, void *context)
 {
@@ -65,6 +60,6 @@ int	main(int argc, char **argv)
 			pause();
 	}
 	else
-		ft_putendl_fd("Invalid ! Number Of Arguments : ./server", 2);
+		ft_putendl_fd("Invalid ! Check Number Of Arguments : ./server", 2);
 	return (0);
 }

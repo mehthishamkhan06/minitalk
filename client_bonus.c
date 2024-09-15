@@ -31,15 +31,15 @@ int	is_digit_str(char *str)
 void	acknowledge(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_printf("Congratulations....! Server received %d characters", g_length);
-	exit (0);	
+		ft_printf("Congrats....! Server received %d characters", g_length);
+	exit (0);
 }
 
 void	ft_error(int send_sig)
 {
 	if (send_sig == -1)
 	{
-		ft_putendl_fd("ERROR..Invalid PID. KILL got killed", 2);
+		ft_putendl_fd("ERROR..KILL got killed(Function failed to connect)", 2);
 		exit (1);
 	}
 }
@@ -82,13 +82,12 @@ int	main(int argc, char *argv[])
 		if (is_digit_str(argv[1]) != 1)
 			return (ft_putendl_fd("ERROR..(Invalid PID)", 2), 0);
 		pid = ft_atoi(argv[1]);
-		send_signals(pid, argv[2]);
 		g_length = ft_strlen(argv[2]);
 		signal(SIGUSR1, acknowledge);
-		while(1)
-			pause();
+		send_signals(pid, argv[2]);
+		pause();
 	}
 	else
-		ft_putendl_fd("ERROR...The number of arguments should be 3", 2);
+		ft_putendl_fd("ERROR...Invalid Number of Arguments", 2);
 	return (0);
 }

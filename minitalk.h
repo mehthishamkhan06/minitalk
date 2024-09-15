@@ -10,9 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <signal.h>
-#include <string.h>
-#include "Libft/libft.h"
+#ifndef MINITALK_H
+# define MINITALK_H
+
+# include "Libft/libft.h"
+# include <signal.h>
+# include <stdio.h>
+# include <string.h>
+# include <sys/types.h>
+# include <unistd.h>
+
+#endif
